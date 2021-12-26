@@ -34,6 +34,6 @@ jobs:
           git config --local user.name "GitHub Actions"
           git add plots/prevalence_by_region.png
           git commit -m 'Re-render prevalence_by_region.png'
-          git push origin
+          git push
       
                     
