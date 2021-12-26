@@ -123,6 +123,9 @@ utla_most_recent$areaNameOrdered <- factor(utla_most_recent$areaName, levels=utl
 utla_most_recent <- utla_most_recent %>%
   filter(areaName %in% utla_top_N)
 
+latest_date <- max(utla$date)
+
+
 
 color_code = "#0070C0"
 
