@@ -12,12 +12,14 @@ on:
 
 jobs:
   generate-data:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2 # Checkout branch into the runner
       - uses: r-lib/actions/setup-r@master # Set up R runtime
         with:
           r-version: 'release'
+          
+      - name: Install packages
           
       - name: Setup renv # Set up R env to install packages
         run: |
