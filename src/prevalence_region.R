@@ -143,9 +143,10 @@ ggplot(region, aes(x=date, y=prevalenceRate, color=areaNameOrdered)) +
   geom_text(
     data=region_most_recent, 
     aes(label=scales::percent(prevalenceRate,0.01)),
-    hjust=0.5,
-    vjust=0,
-    nudge_y=0.0025,
+    hjust=1,
+    vjust=0.2,
+    #nudge_y=0.0025,
+    nudge_x=-2,
     color=color_code,
     fontface="bold"
   ) +
@@ -169,6 +170,8 @@ ggplot(region, aes(x=date, y=prevalenceRate, color=areaNameOrdered)) +
     strip.text.x = element_text(hjust=1, face="bold", size=rel(1)),
     rect = element_rect(fill = "transparent")
   ) +
+  
+  #coord_cartesian(clip = "off") +
   
   labs(
     title="Estimated prevalence of COVID-19 in the UK, by region",
