@@ -7,11 +7,9 @@
 name: Update region prevalence
 
 on:
+  push:
   schedule:
     - cron: "* * * * *" # Every two days at 12:13 AM
-  push:
-    branches:
-    - gh_pages
 
 jobs:
   generate-data:
