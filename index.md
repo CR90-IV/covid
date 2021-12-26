@@ -1,6 +1,4 @@
-# How much COVID-19 is there in the UK?
-
-Using UKHSA data (coronavirus.gov.uk) and corrections for underreporting and delays.
+# How many people in the UK have COVID-19 at the moment?
 
 ## By region
 
