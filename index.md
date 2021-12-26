@@ -7,7 +7,7 @@ Using UKHSA data (coronavirus.gov.uk) and corrections for underreporting and del
 ![Prevalence by region](/plots/prevalence_by_region.png)
 
 ## By local authority (UTLA)
-WIP
+![Prevalence by UTLA](/plots/prevalence_by_utla.png)
 
 # Method
 This uses a method from the [microCOVID project](https://www.microcovid.org/paper/all#detailed-steps-for-basic-method).
