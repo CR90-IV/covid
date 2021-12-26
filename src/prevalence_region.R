@@ -6,8 +6,6 @@ library(gghighlight)
 library(zoo)
 library(ggthemes)
 library(scales)
-library(plotly)
-library(gganimate)
 
 get_data_from_gov_api <- function(request_url) {
   res = GET(request_url)
