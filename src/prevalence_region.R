@@ -175,7 +175,7 @@ ggplot(region, aes(x=date, y=prevalenceRate, color=areaNameOrdered)) +
     subtitle="Using adjustments to compensate for delays and underreporting",
     caption=paste(
       "Data from UK Health Security Agency (coronavirus.data.gov.uk) and ONS; adjustment method from microcovid.org\nProduced",
-      Sys.Date(),
+      Sys.time(),
       "with most recent data up to",
       latest_date
     )
