@@ -111,7 +111,7 @@ df_all_population <- data_population %>%
 
 utla <- get_adjusted_prevalence(data_utla)
 utla_most_recent <- get_most_recent(utla)
-utla_top_N <- get_top_N(utla_most_recent, n=50)
+utla_top_N <- get_top_N(utla_most_recent, n=25)
 utla_order <- get_plot_order(utla_most_recent)
 
 utla_plot <- utla
