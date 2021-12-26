@@ -152,8 +152,9 @@ ggplot(utla_plot, aes(x=date, y=prevalenceRate, color=areaNameOrdered)) +
     data=utla_most_recent, 
     aes(label=scales::percent(prevalenceRate,0.01)),
     hjust=1,
-    vjust=0,
-    nudge_x=-2,
+    vjust=0.5,
+    #nudge_y=0.0025,
+    nudge_x=-3,
     color=color_code,
     fontface="bold"
   ) +
