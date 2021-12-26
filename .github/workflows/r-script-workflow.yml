@@ -18,9 +18,7 @@ jobs:
       - uses: r-lib/actions/setup-r@master # Set up R runtime
         with:
           r-version: 'release'
-          
-      - name: Install packages
-          
+                    
       - name: Setup renv # Set up R env to install packages
         run: |
           install.packages('remotes')
