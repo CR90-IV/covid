@@ -9,7 +9,7 @@ name: Update region prevalence
 on:
   push:
   schedule:
-    - cron: "* * * * *" # Every two days at 12:13 AM
+    - cron: "0 7,17 * * *"
 
 jobs:
   generate-data:
