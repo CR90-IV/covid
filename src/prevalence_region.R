@@ -116,6 +116,8 @@ region_order <- get_plot_order(region_most_recent)
 region$areaNameOrdered <- factor(region$areaName, levels=region_order)
 region_most_recent$areaNameOrdered <- factor(region_most_recent$areaName, levels=region_order)
 
+latest_date <- max(region$date)
+
 
 color_code = "#0070C0"
 
@@ -164,16 +166,18 @@ ggplot(region, aes(x=date, y=prevalenceRate, color=areaNameOrdered)) +
     panel.grid.minor = element_blank(),
     axis.line.x = element_line(color="#C0C0C0"),
     axis.ticks = element_blank(),          #strip axis ticks
-    strip.text.x = element_text(hjust=1, face="bold", size=rel(1))
-    
+    strip.text.x = element_text(hjust=1, face="bold", size=rel(1)),
+    rect = element_rect(fill = "transparent")
   ) +
   
   labs(
-    title="Estimated prevalence of COVID-19 in the UK",
+    title="Estimated prevalence of COVID-19 in the UK, by region",
     subtitle="Using adjustments to compensate for delays and underreporting",
     caption=paste(
       "Data from UK Health Security Agency (coronavirus.data.gov.uk) and ONS; adjustment method from microcovid.org\nProduced",
-      Sys.Date()
+      Sys.Date(),
+      "with most recent data up to",
+      latest_date
     )
   )
 
