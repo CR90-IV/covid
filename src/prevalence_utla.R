@@ -165,8 +165,8 @@ ggplot(utla_plot, aes(x=date, y=prevalenceRate, color=areaNameOrdered)) +
   
   scale_x_date(
     #date_breaks = "2 month",
-    labels=date_format("%b %Y"),
-    limits = as.Date(c('2021-10-01',Sys.Date()))
+    labels=date_format("%d %b"),
+    limits = as.Date(c('2021-11-01',Sys.Date()))
   ) +
   
   theme_fivethirtyeight() +
