@@ -3,7 +3,7 @@ name: Update region prevalence graph
 on:
   push:
   schedule:
-    - cron: "0 7,17 * * *"
+    - cron: "0 18 * * *"
 
 jobs:
   generate-data:
