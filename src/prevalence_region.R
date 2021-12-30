@@ -177,7 +177,7 @@ ggplot(region, aes(x=date, y=prevalenceRate, color=areaNameOrdered)) +
     title="Estimated prevalence of COVID-19 in the UK, by region",
     subtitle="Using adjustments to compensate for delays and underreporting",
     caption=paste(
-      "Data from UK Health Security Agency (coronavirus.data.gov.uk) and ONS; adjustment method from microcovid.org\nProduced",
+      "Data: UKHSA and ONS (via coronavirus.data.gov.uk) | Adjustment method: microCOVID Project\nProduced",
       Sys.time(),
       "with most recent data up to",
       latest_date
