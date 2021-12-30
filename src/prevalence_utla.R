@@ -176,19 +176,20 @@ ggplot(utla_plot, aes(x=date, y=prevalenceRate, color=areaNameOrdered)) +
     axis.line.x = element_line(color="#C0C0C0"),
     axis.ticks = element_blank(),          #strip axis ticks
     strip.text.x = element_text(hjust=1, face="bold", size=rel(1)),
-    rect = element_rect(fill = "transparent")
+    rect = element_rect(fill = "transparent"),
+    axis.text.x=element_text(angle = 90, vjust=0.5)
   ) +
   
   labs(
     title="Estimated prevalence of COVID-19 in the UK, by local authority",
     subtitle="Using adjustments to compensate for delays and underreporting",
     caption=paste(
-      "Data from UK Health Security Agency (coronavirus.data.gov.uk) and ONS; adjustment method from microcovid.org\nProduced",
+      "Data: UKHSA and ONS (via coronavirus.data.gov.uk) | Adjustment method: microCOVID Project\nProduced",
       Sys.time(),
       "with most recent data up to",
       latest_date
     )
   )
 
-ggsave(paste("plots/prevalence_by_utla.png", sep=""), width=10,height=8)
+ggsave(paste("plots/prevalence_by_utla.png", sep=""), width=10,height=10)
 
