@@ -176,7 +176,7 @@ ggplot(utla_plot, aes(x=date, y=prevalenceRate, color=areaNameOrdered)) +
     axis.line.x = element_line(color="#C0C0C0"),
     axis.ticks = element_blank(),          #strip axis ticks
     strip.text.x = element_text(hjust=1, face="bold", size=rel(1)),
-    rect = element_rect(fill = "transparent"),
+    rect = element_rect(fill = "#FFFFFF"),
     axis.text.x=element_text(angle = 90, vjust=0.5)
   ) +
   
