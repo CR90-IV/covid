@@ -18,7 +18,7 @@ jobs:
           
       - name: Render plot
         run:
-          Rscript -e "source('src/prevalence_utla.R')"
+          Rscript -e "source('src/01_prevalence/prevalence_utla.R')"
           
       - name: Commit results
         run: |
