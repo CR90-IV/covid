@@ -40,7 +40,7 @@ plot <- GB %>%
 latest_date <- max(plot$date)
 
 
-ggplot(aes(x=date, y=change_from_baseline, color=place_category)) +
+ggplot(plot, aes(x=date, y=change_from_baseline, color=place_category)) +
   geom_line(
     size=1,
   ) +
