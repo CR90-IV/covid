@@ -14,7 +14,7 @@ jobs:
       
       - name: Install package dependencies
         run:
-          Rscript -e "install.packages(c('tidyverse', 'ggthemes', 'data.table', 'gghighlight', 'zoo', 'scales'))"
+          Rscript -e "install.packages(c('tidyverse', 'ggthemes', 'data.table', 'gghighlight', 'zoo', 'scales', 'extrafont'))"
           
       - name: Render plot
         run:

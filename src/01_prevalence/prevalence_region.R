@@ -6,6 +6,7 @@ library(gghighlight)
 library(zoo)
 library(ggthemes)
 library(scales)
+library(extrafont)
 
 get_data_from_gov_api <- function(request_url) {
   res = GET(request_url)
@@ -164,6 +165,7 @@ ggplot(region, aes(x=date, y=prevalenceRate, color=areaNameOrdered)) +
   theme_fivethirtyeight() +
   
   theme(
+    text = element_text(family = "IBM Plex Sans"),
     panel.grid.minor = element_blank(),
     axis.line.x = element_line(color="#C0C0C0"),
     axis.ticks = element_blank(),          #strip axis ticks
