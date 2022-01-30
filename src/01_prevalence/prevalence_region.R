@@ -47,10 +47,10 @@ ggplot(region, aes(x=date, y=prevalenceRate, color=areaNameOrdered)) +
   geom_text(
     data=region_most_recent, 
     aes(label=scales::percent(prevalenceRate,0.01)),
-    hjust=1,
-    vjust=0.2,
-    #nudge_y=0.0025,
-    nudge_x=-2,
+    hjust=0.75,
+    vjust=1,
+    nudge_y=-0.0025,
+    #nudge_x=0,
     color=color_code,
     fontface="bold"
   ) +
