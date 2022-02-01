@@ -25,6 +25,6 @@ jobs:
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           git pull
-          git add plots/prevalence_by_utla.png
+          git add plots/reinfections_by_region.png
           git commit -m 'Re-render reinfections.png'
           git push
