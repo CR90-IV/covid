@@ -99,3 +99,60 @@ ggplot(utla_plot, aes(x=date, y=prevalenceRate, color=areaNameOrdered)) +
 
 ggsave(paste("plots/prevalence_by_utla.png", sep=""), width=10,height=10)
 
+
+
+utla_today <- utla %>%
+  filter(!is.na(prevalenceRate)) %>%
+  group_by(areaName) %>%
+  slice_max(date, n=1) %>%
+  ungroup %>%
+  mutate(rank = dense_rank(desc(prevalenceRate)))
+
+
+ggplot(utla_today, aes(x=prevalenceRate, y=rank)) +
+
+  geom_point(
+    size=3,
+    color=color_code,
+  ) +
+  
+
+  geom_text(
+    aes(label=areaName),
+    hjust=0,
+    vjust=0.5,
+    nudge_x=0.0005,
+    family = "IBM Plex Sans",
+    size=3
+  ) +
+  
+  scale_x_continuous(labels = scales::percent, position = "top") +
+  scale_y_reverse(breaks=seq(10, max(utla_today$rank), 10) %>% prepend(1)) +
+  
+
+  theme_fivethirtyeight() +
+  
+  theme(
+    text = element_text(family = "IBM Plex Sans"),
+    panel.grid.minor = element_blank(),
+    axis.ticks = element_blank(),          #strip axis ticks
+    strip.text.x = element_text(hjust=1, face="bold", size=rel(1)),
+    rect = element_rect(fill = "#FFFFFF"),
+    axis.title.x = element_text()
+  ) +
+  
+  labs(
+    title="Rank of UTLAs by current estimated COVID-19 prevalence",
+    subtitle="Using adjustments to compensate for delays and underreporting",
+    x="COVID-19 prevalence",
+    caption=paste(
+      "Data: UKHSA and ONS (via coronavirus.data.gov.uk) | Adjustment method: microCOVID Project\nProduced",
+      Sys.time(),
+      "with most recent data up to",
+      latest_date
+    )
+  )
+
+ggsave(paste("plots/prevalence_by_utla_rank.png", sep=""), width=10,height=20)
+
+

@@ -1,4 +1,5 @@
 source("src/01_prevalence/prevalence_core.R")
+library(ggrepel)
 
 # Import data
 
@@ -59,6 +60,19 @@ ggplot(utla_peak, aes(x=dose_3_uptake, y=prevalenceRate)) +
     color=color_code,
   ) +
   
+  geom_label_repel(
+    aes(label = areaName),
+    size=2,
+    family = "IBM Plex Sans",
+    min.segment.length = 0,
+    point.padding = 0.5,
+    #arrow = arrow(length = unit(0.005, "npc")),
+    label.size = NA,
+    alpha = 0.8,
+    fill = NA,
+    segment.color = 'grey50'
+  ) +
+  
   scale_x_continuous(labels = scales::percent) +
   scale_y_continuous(labels = scales::percent) +
   
@@ -71,12 +85,15 @@ ggplot(utla_peak, aes(x=dose_3_uptake, y=prevalenceRate)) +
     axis.ticks = element_blank(),          #strip axis ticks
     strip.text.x = element_text(hjust=1, face="bold", size=rel(1)),
     rect = element_rect(fill = "#FFFFFF"),
+    axis.title.x = element_text(),
+    axis.title.y = element_text()
   ) +
   
   labs(
     title="Omicron prevalence compared with vaccine coverage",
     subtitle="Using adjustments to compensate for testing delays and underreporting",
     x="Vaccine coverage",
+    y="Prevalence of COVID-19",
     caption=paste(
       "Data: UKHSA and ONS (via coronavirus.data.gov.uk) | Adjustment method: microCOVID Project\nProduced",
       Sys.time(),
@@ -85,5 +102,5 @@ ggplot(utla_peak, aes(x=dose_3_uptake, y=prevalenceRate)) +
     )
   )
 
-ggsave(paste("plots/prevalence_by_utla.png", sep=""), width=10,height=10)
+ggsave(paste("plots/prevalence_vs_boosters.png", sep=""), width=10,height=10)
 
