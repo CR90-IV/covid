@@ -2,6 +2,8 @@ name: Update reinfection graph
 
 on:
   push:
+    paths:
+      - 'src/04_reinfections/04_reinfections.R'
   schedule:
     - cron: "0 18 * * *"
 
