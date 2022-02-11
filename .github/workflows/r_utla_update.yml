@@ -1,7 +1,10 @@
-name: Update utla prevalence graph
+name: Update UTLA prevalence graphs
 
 on:
   push:
+    paths:
+      - 'src/01_prevalence/prevalence_utla.R'
+
   schedule:
     - cron: "0 18 * * *"
 
@@ -27,4 +30,9 @@ jobs:
           git pull
           git add plots/prevalence_by_utla.png
           git commit -m 'Re-render prevalence_by_utla.png'
+          git push
+          
+          git pull
+          git add plots/prevalence_by_utla_rank.png
+          git commit -m 'Re-render prevalence_by_utla_rank.png'
           git push
