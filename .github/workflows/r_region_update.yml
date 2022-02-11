@@ -2,6 +2,8 @@ name: Update region prevalence graph
 
 on:
   push:
+    paths:
+    - 'src/01_prevalence/prevalence_region.R'
   schedule:
     - cron: "0 18 * * *"
 
