@@ -9,6 +9,24 @@ library(scales)
 library(extrafont)
 library(lubridate)
 library(janitor)
+library(xml2)
+library(rvest)
+
+
+# Parse ONS for latest data
+
+ons_is_url = "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
+
+ons_is_data_url <- rvest::read_html(ons_is_url) %>% 
+  html_nodes(".show-hide") %>% 
+  html_nodes("a") %>%
+  html_attr("href") %>%
+  extract2(1)
+  
+data_is <- paste0("https://www.ons.gov.uk", ons_is_data_url) %>%
+  readxl::read_excel(sheet="1p") %>%
+  clean_names()
+
 
 url_to_data_table <- function(request_url) {
   res = GET(request_url)
@@ -46,7 +64,7 @@ area_lookup <- data_testing %>%
 
 
 # ONS infection survey
-data_is <- readxl::read_excel("src/05_nowcasting/20220311covid19infectionsurveydatasetsengland2.xlsx", sheet="1p") %>%
+data_is <- readxl::read_excel("src/05_nowcasting/20220318covid19infectionsurveydatasetsengland1.xlsx", sheet="1p") %>%
   clean_names()
 
 region_labels <- data_is %>%
@@ -123,14 +141,39 @@ df <- merge(infection_survey, data_testing, by=c("area_code", "date"), all.x=TRU
 
 
 plot <- df %>% 
-  filter(region=="London") %>%
+  #filter(region=="London") %>%
   mutate(period = if_else(date < "2022-01-11", "PCR testing is required", "PCR testing not required"))
 
 ggplot(plot, aes(x=date)) + 
   geom_line(aes(y=cases_sum)) +
   geom_ribbon(aes(ymin=infected_lower, ymax=infected_upper), fill="gray", color=NA, alpha=0.5)
 
-ggplot(plot, aes(x=date, y=report_rate, color=period)) + geom_line()# + geom_line(aes(y=positivity_rate))
+ggplot(plot, aes(x=date, y=report_rate, color=period)) + geom_line() + facet_wrap(~region)# + geom_line(aes(y=positivity_rate))
 
-ggplot(plot, aes(x=positivity_rate, y=report_rate, color=period)) + geom_point()
-           
+ggplot(plot, aes(x=(date-as.Date("2020-02-28"))/(1500*positivity_rate**2), y=(report_rate), color=period)) +
+  geom_point() +
+  theme(legend.position="NA")
+
+ggplot(plot, aes(x=date, y=positivity_rate, color=period)) +
+  geom_point()
+
+
+ggplot(plot, aes(
+    y=1/(positivity_rate**0.5*50),
+    x=date)
+  ) +
+  geom_point() +
+  geom_point(aes(y=report_rate), color="green") +
+  theme(legend.position="NA")
+
+
+nls(report_rate ~ I(1/(positivity_rate**A*B)), data=plot, start=c(A=0.5, B=50))
+
+nls(infected_median ~ I(cases_sum*A), data=plot, start=list(A=1))
+
+ggplot(plot, aes(x=date, y=infected_median-cases_sum*5)) +
+  geom_point()
+
+ggplot(plot, aes(x=cases_sum, y=infected_median, color=period)) +
+  geom_pointrange(aes(ymin=infected_lower, ymax=infected_upper))# +
+  facet_grid(rows=vars(period), cols=vars(region))
