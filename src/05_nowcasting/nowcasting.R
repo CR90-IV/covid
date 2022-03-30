@@ -22,9 +22,10 @@ ons_is_data_url <- rvest::read_html(ons_is_url) %>%
   html_nodes("a") %>%
   html_attr("href") %>%
   extract2(1)
+
+download.file(paste0("https://www.ons.gov.uk", ons_is_data_url), "src/05_nowcasting/ons_infection_survey.xlsx", mode = "wb")
   
-data_is <- paste0("https://www.ons.gov.uk", ons_is_data_url) %>%
-  readxl::read_excel(sheet="1p") %>%
+data_is <- readxl::read_excel("src/05_nowcasting/ons_infection_survey.xlsx", sheet="1p") %>%
   clean_names()
 
 
@@ -145,10 +146,26 @@ plot <- df %>%
   mutate(period = if_else(date < "2022-01-11", "PCR testing is required", "PCR testing not required"))
 
 ggplot(plot, aes(x=date)) + 
-  geom_line(aes(y=cases_sum)) +
-  geom_ribbon(aes(ymin=infected_lower, ymax=infected_upper), fill="gray", color=NA, alpha=0.5)
+  #geom_line(aes(y=cases_sum)) +
+  geom_line(aes(y=infected_median)) +
+  geom_ribbon(aes(ymin=infected_lower, ymax=infected_upper), color=NA, alpha=0.5)
 
-ggplot(plot, aes(x=date, y=report_rate, color=period)) + geom_line() + facet_wrap(~region)# + geom_line(aes(y=positivity_rate))
+ggplot(plot, aes(x=date, y=report_rate, color=period)) +
+  geom_line(size=1) + 
+  facet_wrap(~region) + # + geom_line(aes(y=positivity_rate))
+  scale_color_fivethirtyeight() +
+  theme_fivethirtyeight() +
+  scale_y_continuous(labels=scales::percent, limits=c(0,NA)) +
+  theme(
+    text=element_text(family="Arial"),
+    legend.position="top",
+    legend.justification = "left",
+    legend.title=element_blank()
+  ) +
+  labs(
+    title="Official case counts are missing the majority of COVID cases",
+    subtitle="Comparing the rolling 7-day sum of official case counts against prevalence from the ONS Infection Survey"
+  )
 
 ggplot(plot, aes(x=(date-as.Date("2020-02-28"))/(1500*positivity_rate**2), y=(report_rate), color=period)) +
   geom_point() +
